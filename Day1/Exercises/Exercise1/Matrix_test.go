@@ -25,7 +25,7 @@ func TestGetRows(t *testing.T) {
 		}
 
 		got := matrix.GetRows()
-		want := uint16(1)
+		want := 1
 
 		if got != want {
 			t.Errorf("got %q want %q", got, want)
@@ -42,7 +42,7 @@ func TestGetCols(t *testing.T) {
 		}
 
 		got := matrix.GetCols()
-		want := uint16(2)
+		want := 2
 
 		if got != want {
 			t.Errorf("got %q want %q", got, want)

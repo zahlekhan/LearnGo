@@ -7,8 +7,8 @@ import (
 
 // Matrix uses 0-based indexing everywhere except while specifying dimensions
 type Matrix struct {
-	rows     uint16
-	cols     uint16
+	rows     int
+	cols     int
 	elements [][]int
 }
 
@@ -23,15 +23,15 @@ func NewMatrix(rows, cols int) (Matrix, error) {
 		elements[row] = make([]int, cols)
 	}
 
-	m := Matrix{uint16(rows), uint16(cols), elements}
+	m := Matrix{rows, cols, elements}
 	return m, nil
 }
 
-func (m *Matrix) GetRows() uint16 {
+func (m *Matrix) GetRows() int {
 	return m.rows
 }
 
-func (m *Matrix) GetCols() uint16 {
+func (m *Matrix) GetCols() int {
 	return m.cols
 }
 
