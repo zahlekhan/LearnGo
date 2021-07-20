@@ -33,4 +33,21 @@ func TestGetRows(t *testing.T) {
 	})
 }
 
+func TestGetCols(t *testing.T) {
+	t.Run("Create a 1x2 matrix", func(t *testing.T) {
+		matrix,err := NewMatrix(1,2)
+
+		if err != nil {
+			t.Fatalf("got an error %s",err.Error())
+		}
+
+		got := matrix.GetCols()
+		want := uint16(2)
+
+		if got != want {
+			t.Errorf("got %q want %q",got,want)
+		}
+	})
+}
+
 
