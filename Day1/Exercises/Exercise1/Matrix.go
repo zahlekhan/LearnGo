@@ -16,13 +16,18 @@ func NewMatrix(rows,cols int) (Matrix, error){
 		return Matrix{},errors.New("Indices cannot be negative or zero")
 	}
 
+	// Initialize slice with given size
 	elements := make([][]int,rows)
-
 	for row := range elements {
 		elements[row] = make([]int,cols)
 	}
+
 	m := Matrix{uint16(rows),uint16(rows),elements}
 	return m,nil
+}
+
+func (m *Matrix) GetRows() uint16{
+	return m.rows
 }
 
 func main() {
