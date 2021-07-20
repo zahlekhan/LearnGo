@@ -22,12 +22,16 @@ func NewMatrix(rows,cols int) (Matrix, error){
 		elements[row] = make([]int,cols)
 	}
 
-	m := Matrix{uint16(rows),uint16(rows),elements}
+	m := Matrix{uint16(rows),uint16(cols),elements}
 	return m,nil
 }
 
 func (m *Matrix) GetRows() uint16{
 	return m.rows
+}
+
+func (m *Matrix) GetCols() uint16{
+	return m.cols
 }
 
 func main() {
