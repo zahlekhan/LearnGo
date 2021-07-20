@@ -20,7 +20,7 @@ func TestGetRows(t *testing.T) {
 	t.Run("Create a 1x2 matrix", func(t *testing.T) {
 		matrix,err := NewMatrix(1,2)
 
-		if err == nil {
+		if err != nil {
 			t.Fatalf("got an error %s",err.Error())
 		}
 
@@ -32,3 +32,5 @@ func TestGetRows(t *testing.T) {
 		}
 	})
 }
+
+
