@@ -8,6 +8,20 @@ type TreeNode struct {
 	rightChild *TreeNode
 }
 
+func (t *TreeNode) PostOrder() string {
+	leftChildPostOrder := ""
+	if t.leftChild != nil {
+		leftChildPostOrder = t.leftChild.PostOrder()
+	}
+
+	rightChildPostOrder := ""
+	if t.rightChild != nil {
+		rightChildPostOrder = t.rightChild.PostOrder()
+	}
+
+	return leftChildPostOrder + rightChildPostOrder + string(t.symbol)
+}
+
 func ConvertExpressionToTree(expression string) (*TreeNode, error) {
 	if expression == "a+b-c" {
 		root := &TreeNode{
