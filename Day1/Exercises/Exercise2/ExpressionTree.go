@@ -1,6 +1,9 @@
 package main
 
-import "errors"
+import (
+	"errors"
+	"fmt"
+)
 
 type TreeNode struct {
 	symbol     byte
@@ -57,4 +60,13 @@ func ConvertExpressionToTree(expression string) (*TreeNode, error) {
 	}
 
 	return nil, errors.New("not implemented")
+}
+
+func main() {
+	expression := "a+b-c"
+	root, _ := ConvertExpressionToTree(expression)
+
+	fmt.Println("Expression :", expression)
+	fmt.Println("PreOrder   :", root.PreOrder())
+	fmt.Println("PostOrder  :", root.PostOrder())
 }
