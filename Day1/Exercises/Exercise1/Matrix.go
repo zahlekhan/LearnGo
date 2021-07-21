@@ -12,6 +12,7 @@ type Matrix struct {
 	elements [][]int
 }
 
+// NewMatrix is a constructor function for Matrix
 func NewMatrix(rows, cols int) (Matrix, error) {
 	if rows < 1 || cols < 1 {
 		return Matrix{}, errors.New("Indices cannot be negative or zero")
