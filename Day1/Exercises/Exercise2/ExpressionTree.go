@@ -22,6 +22,20 @@ func (t *TreeNode) PostOrder() string {
 	return leftChildPostOrder + rightChildPostOrder + string(t.symbol)
 }
 
+func (t *TreeNode) PreOrder() string {
+	leftChildPreOrder := ""
+	if t.leftChild != nil {
+		leftChildPreOrder = t.leftChild.PreOrder()
+	}
+
+	rightChildPreOrder := ""
+	if t.rightChild != nil {
+		rightChildPreOrder = t.rightChild.PreOrder()
+	}
+
+	return string(t.symbol) + leftChildPreOrder + rightChildPreOrder
+}
+
 func ConvertExpressionToTree(expression string) (*TreeNode, error) {
 	if expression == "a+b-c" {
 		root := &TreeNode{
