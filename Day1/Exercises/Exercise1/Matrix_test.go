@@ -1,6 +1,8 @@
 package main
 
-import "testing"
+import (
+	"testing"
+)
 
 func TestNewMatrix(t *testing.T) {
 	t.Run("Negative or zero values", func(t *testing.T) {
@@ -189,6 +191,23 @@ func TestAddMatrix(t *testing.T) {
 
 		if err.Error() != want {
 			t.Errorf("got %q want %q", err.Error(), want)
+		}
+
+	})
+}
+
+func TestMatrix_ToJSONString(t *testing.T) {
+	t.Run("JSON string for [2,3]", func(t *testing.T) {
+		matrix, _ := NewMatrix(1, 2)
+
+		_ = matrix.SetElement(0, 0, 2)
+		_ = matrix.SetElement(0, 1, 3)
+
+		got, _ := matrix.ToJSONString()
+		want := "[[2,3]]"
+
+		if got != want {
+			t.Errorf("got %q want %q", got, want)
 		}
 
 	})

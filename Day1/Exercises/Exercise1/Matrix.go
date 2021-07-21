@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"errors"
 	"fmt"
 )
@@ -48,6 +49,16 @@ func (m *Matrix) SetElement(row, col, value int) error {
 	}
 	m.elements[row][col] = value
 	return nil
+}
+
+func (m *Matrix) ToJSONString() (string, error) {
+	res, err := json.Marshal(m.elements)
+
+	if err != nil {
+		return "", err
+	}
+
+	return string(res), nil
 }
 
 func AddMatrix(m1, m2 *Matrix) (Matrix, error) {
