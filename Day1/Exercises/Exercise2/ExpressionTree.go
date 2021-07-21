@@ -39,6 +39,7 @@ func (t *TreeNode) PreOrder() string {
 	return string(t.symbol) + leftChildPreOrder + rightChildPreOrder
 }
 
+// ConvertExpressionToTree has been implemented manually as advised in spec sheet
 func ConvertExpressionToTree(expression string) (*TreeNode, error) {
 	if expression == "a+b-c" {
 		root := &TreeNode{
