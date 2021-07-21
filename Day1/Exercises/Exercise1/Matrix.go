@@ -50,6 +50,24 @@ func (m *Matrix) SetElement(row, col, value int) error {
 	return nil
 }
 
+func AddMatrix(m1, m2 *Matrix) (Matrix, error) {
+	if m1.GetRows() != m2.GetRows() && m1.GetCols() != m2.GetCols() {
+		return Matrix{}, errors.New("dimensions don't match")
+	}
+
+	res, _ := NewMatrix(m1.GetRows(), m1.GetCols())
+
+	for row := 0; row < m1.GetRows(); row++ {
+		for col := 0; col < m1.GetCols(); col++ {
+			element1, _ := m1.GetElement(row, col)
+			element2, _ := m2.GetElement(row, col)
+			_ = res.SetElement(row, col, element1+element2)
+		}
+	}
+
+	return res, nil
+}
+
 func main() {
 	t, _ := NewMatrix(-2, 4)
 	fmt.Println(t)
