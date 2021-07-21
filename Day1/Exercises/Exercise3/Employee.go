@@ -2,7 +2,6 @@ package main
 
 import (
 	"errors"
-	"fmt"
 )
 
 type Employee struct {
@@ -101,9 +100,10 @@ func (f *freelancer) IncrementTotalDuration(increment int) {
 	f.totalDurationWorked += increment
 }
 
-func main() {
-	emp1, _ := EmployeeFactory("John", "Full time", 500)
-	emp1.IncrementTotalDuration(30)
-	fmt.Println(emp1.GetTotalDurationWorked())
-	fmt.Println(emp1.Salary())
+func TotalWagesOwed(E ...Employee) int {
+	totalWages := 0
+	for _, employee := range E {
+		totalWages += employee.Salary()
+	}
+	return totalWages
 }
