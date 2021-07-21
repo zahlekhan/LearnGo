@@ -17,8 +17,8 @@ type Wages interface {
 	IncrementTotalDuration(int)
 }
 
-// Salary can be refactored to be included in Wages interface if wage policies get too complex
-func (e *Employee) Salary() int {
+// CalculateSalary can be refactored to be included in Wages interface if wage policies get too complex
+func (e *Employee) CalculateSalary() int {
 	return e.GetRate() * e.GetTotalDurationWorked()
 }
 
@@ -103,7 +103,7 @@ func (f *freelancer) IncrementTotalDuration(increment int) {
 func TotalWagesOwed(E ...Employee) int {
 	totalWages := 0
 	for _, employee := range E {
-		totalWages += employee.Salary()
+		totalWages += employee.CalculateSalary()
 	}
 	return totalWages
 }

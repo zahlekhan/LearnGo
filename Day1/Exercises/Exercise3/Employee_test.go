@@ -15,10 +15,10 @@ func TestContractor_IncrementTotalDuration(t *testing.T) {
 	}
 }
 
-func TestEmployee_Salary(t *testing.T) {
+func TestEmployee_CalculateSalary(t *testing.T) {
 	emp, _ := EmployeeFactory("John", "Full time", 500)
 	emp.IncrementTotalDuration(30)
-	got := emp.Salary()
+	got := emp.CalculateSalary()
 	want := 15000
 
 	if got != want {
