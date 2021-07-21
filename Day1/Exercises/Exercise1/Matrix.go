@@ -42,6 +42,14 @@ func (m *Matrix) GetElement(row, col int) (int, error) {
 	return m.elements[row][col], nil
 }
 
+func (m *Matrix) SetElement(row, col, value int) error {
+	if row < 0 || row >= m.GetRows() || col < 0 || col >= m.GetCols() {
+		return errors.New("indices are out of bounds")
+	}
+	m.elements[row][col] = value
+	return nil
+}
+
 func main() {
 	t, _ := NewMatrix(-2, 4)
 	fmt.Println(t)
