@@ -35,8 +35,11 @@ func (m *Matrix) GetCols() int {
 	return m.cols
 }
 
-func (m *Matrix) GetElement(row, col int) int {
-	return m.elements[row][col]
+func (m *Matrix) GetElement(row, col int) (int, error) {
+	if row < 0 || row >= m.GetRows() || col < 0 || col >= m.GetCols() {
+		return 0, errors.New("indices are out of bounds")
+	}
+	return m.elements[row][col], nil
 }
 
 func main() {
