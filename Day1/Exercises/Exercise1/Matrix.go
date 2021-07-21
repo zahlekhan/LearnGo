@@ -3,7 +3,6 @@ package main
 import (
 	"encoding/json"
 	"errors"
-	"fmt"
 )
 
 // Matrix uses 0-based indexing everywhere except while specifying dimensions
@@ -77,9 +76,4 @@ func AddMatrix(m1, m2 *Matrix) (Matrix, error) {
 	}
 
 	return res, nil
-}
-
-func main() {
-	t, _ := NewMatrix(-2, 4)
-	fmt.Println(t)
 }
