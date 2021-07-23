@@ -9,16 +9,22 @@ import (
 )
 
 func GetRating(ratingChan chan uint64, num int) {
+	var wg sync.WaitGroup
 	for i := 0; i < num; i++ {
-		//Simulate call
-		source := rand.NewSource(42)
-		rand := rand.New(source)
-		duration := time.Duration(rand.Intn(100))
-		time.Sleep(duration * time.Millisecond)
-		rating := uint64(rand.Intn(5))
+		wg.Add(1)
+		go func() {
+			defer wg.Done()
+			//Simulate call
+			source := rand.NewSource(42)
+			rand := rand.New(source)
+			duration := time.Duration(rand.Intn(100))
+			time.Sleep(duration * time.Millisecond)
+			rating := uint64(rand.Intn(5))
 
-		ratingChan <- rating
+			ratingChan <- rating
+		}()
 	}
+	wg.Wait()
 	close(ratingChan)
 }
 
@@ -40,7 +46,6 @@ func AverageRating(ratingChan chan uint64, numOfStudents int) float64 {
 	}
 
 	wg.Wait()
-
 	return float64(totalRating) / float64(numOfStudents)
 }
 
