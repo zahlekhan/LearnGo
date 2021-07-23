@@ -2,9 +2,25 @@ package main
 
 import (
 	"fmt"
+	"math/rand"
 	"sync"
 	"sync/atomic"
+	"time"
 )
+
+func GetRating(ratingChan chan uint64, num int) {
+	for i := 0; i < num; i++ {
+		//Simulate call
+		source := rand.NewSource(42)
+		rand := rand.New(source)
+		duration := time.Duration(rand.Intn(100))
+		time.Sleep(duration * time.Millisecond)
+		rating := uint64(rand.Intn(5))
+
+		ratingChan <- rating
+	}
+	close(ratingChan)
+}
 
 func Adder(totalRating *uint64, ratingChan chan uint64, wg *sync.WaitGroup) {
 	defer wg.Done()
@@ -13,25 +29,19 @@ func Adder(totalRating *uint64, ratingChan chan uint64, wg *sync.WaitGroup) {
 	}
 }
 
-func AverageRating(Ratings ...uint64) float64 {
+func AverageRating(ratingChan chan uint64, numOfStudents int) float64 {
 	totalRating := uint64(0)
 	wg := sync.WaitGroup{}
-	ratingChan := make(chan uint64)
 
-	numOfCounter := 10
-	for i := 1; i <= numOfCounter; i++ {
+	numOfAdder := 10
+	for i := 1; i <= numOfAdder; i++ {
 		wg.Add(1)
 		go Adder(&totalRating, ratingChan, &wg)
 	}
 
-	for _, rating := range Ratings {
-		ratingChan <- rating
-	}
-
-	close(ratingChan)
 	wg.Wait()
 
-	return CalculateAverage(totalRating, len(Ratings))
+	return CalculateAverage(totalRating, numOfStudents)
 }
 
 func CalculateAverage(total uint64, count int) float64 {
@@ -39,6 +49,9 @@ func CalculateAverage(total uint64, count int) float64 {
 }
 
 func main() {
-	ratings := []uint64{1, 2, 3, 4, 5}
-	fmt.Println(AverageRating(ratings...))
+	ratingChan := make(chan uint64)
+	numOfStudents := 200
+	go GetRating(ratingChan, numOfStudents)
+
+	fmt.Println(AverageRating(ratingChan, numOfStudents))
 }
