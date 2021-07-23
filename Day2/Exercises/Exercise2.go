@@ -41,11 +41,7 @@ func AverageRating(ratingChan chan uint64, numOfStudents int) float64 {
 
 	wg.Wait()
 
-	return CalculateAverage(totalRating, numOfStudents)
-}
-
-func CalculateAverage(total uint64, count int) float64 {
-	return float64(total) / float64(count)
+	return float64(totalRating) / float64(numOfStudents)
 }
 
 func main() {
