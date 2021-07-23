@@ -28,24 +28,20 @@ func GetRating(ratingChan chan uint64, num int) {
 	close(ratingChan)
 }
 
-func Adder(totalRating *uint64, ratingChan chan uint64, wg *sync.WaitGroup) {
-	defer wg.Done()
+func Adder(totalRating *uint64, ratingChan chan uint64, done chan<- bool) {
 	for rating := range ratingChan {
 		atomic.AddUint64(totalRating, rating)
 	}
+	done <- true
 }
 
 func AverageRating(ratingChan chan uint64, numOfStudents int) float64 {
 	totalRating := uint64(0)
-	wg := sync.WaitGroup{}
+	done := make(chan bool)
 
-	numOfAdder := 10
-	for i := 1; i <= numOfAdder; i++ {
-		wg.Add(1)
-		go Adder(&totalRating, ratingChan, &wg)
-	}
+	go Adder(&totalRating, ratingChan, done)
 
-	wg.Wait()
+	<-done
 	return float64(totalRating) / float64(numOfStudents)
 }
 
