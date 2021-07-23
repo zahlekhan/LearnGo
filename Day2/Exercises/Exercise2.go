@@ -10,12 +10,12 @@ import (
 
 func GetRating(ratingChan chan uint64, num int) {
 	var wg sync.WaitGroup
+	source := rand.NewSource(42)
 	for i := 0; i < num; i++ {
 		wg.Add(1)
 		go func() {
 			defer wg.Done()
 			//Simulate call
-			source := rand.NewSource(42)
 			rand := rand.New(source)
 			duration := time.Duration(rand.Intn(100))
 			time.Sleep(duration * time.Millisecond)
